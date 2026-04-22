@@ -2,7 +2,7 @@ class TaskManager:
     def __init__(self):
         self.tasks = []
 
-    # Add Task
+  
     def add_task(self):
         title = input("Enter Title: ")
         description = input("Enter Description: ")
@@ -20,7 +20,7 @@ class TaskManager:
             print("No tasks available.\n")
             return
 
-        print("\n--- Task List ---")
+        print(" Task List ")
         for index, task in enumerate(self.tasks, start=1):
             print(f"{index}. {task['title']} - {task['description']}")
         print()
