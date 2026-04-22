@@ -1,41 +1,73 @@
 class TaskManager:
     def __init__(self):
-        self.tasks = [
-            {"title": "Study Python", "description": "Finish basics and loops"},
-            {"title": "Complete Assignment", "description": "Submit task tracker project"},
-            {"title": "Exercise", "description": "30 minutes cardio"}
-        ]
+        self.tasks = []
 
+    # Add Task
     def add_task(self):
-        new_tasks = [
-            {"title": "Learn JSON", "description": "Understand data storage"},
-            {"title": "Read Book", "description": "Read 10 pages daily"}
-        ]
-        self.tasks.extend(new_tasks)
-        print("Tasks added!")
+        title = input("Enter Title: ")
+        description = input("Enter Description: ")
+
+        task = {
+            "title": title,
+            "description": description
+        }
+
+        self.tasks.append(task)
+        print("Task added successfully!\n")
 
     def view_tasks(self):
-        print("\n--- Your Tasks ---")
-        for i, task in enumerate(self.tasks, start=1):
-            print(f"{i}. {task['title']} - {task['description']}")
+        if not self.tasks:
+            print("No tasks available.\n")
+            return
+
+        print("\n--- Task List ---")
+        for index, task in enumerate(self.tasks, start=1):
+            print(f"{index}. {task['title']} - {task['description']}")
+        print()
 
     def delete_task(self):
-        if self.tasks:
-            removed = self.tasks.pop()
-            print(f"Task '{removed['title']}' deleted!")
+        self.view_tasks()
+
+        if not self.tasks:
+            return
+
+        try:
+            task_number = int(input("Enter task number to delete: "))
+            if 1 <= task_number <= len(self.tasks):
+                removed = self.tasks.pop(task_number - 1)
+                print(f"Deleted: {removed['title']}\n")
+            else:
+                print("Invalid task number.\n")
+        except ValueError:
+            print("Please enter a valid number.\n")
+
+def main():
+    manager = TaskManager()
+
+    while True:
+        print("===== Task Tracker =====")
+        print("1. Add Task")
+        print("2. View Tasks")
+        print("3. Delete Task")
+        print("4. Exit")
+
+        choice = input("Enter choice: ")
+
+        if choice == "1":
+            manager.add_task()
+        elif choice == "2":
+            manager.view_tasks()
+        elif choice == "3":
+            manager.delete_task()
+        elif choice == "4":
+            print("Goodbye!")
+            break
         else:
-            print("No task to delete!")
+            print("Invalid choice. Try again.\n")
 
-    def run(self):
-        print("Initial Tasks:")
-        self.view_tasks()
 
-        print("\nAdding Tasks...")
-        self.add_task()
-        self.view_tasks()
-
-        print("\nDeleting Task...")
-        self.delete_task()
+if __name__ == "__main__":
+    main()
     
 
 TaskManager().run()
